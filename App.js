@@ -31,7 +31,7 @@ import {
 
 import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, Left, Body, Right, Title, List, ListItem, Accordion, Thumbnail } from 'native-base';
 
-import ARExperience from './ARExperience';
+import ARExperience from './src/ARExperience';
 
 var sharedProps = {
   apiKey: "6CF35CA9-6A8B-4102-8A5E-F41F1A36FD23",
@@ -63,10 +63,10 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://poly.googleapis.com/v1/assets?category=art&format=OBJ&key=')
+    fetch('https://poly.googleapis.com/v1/assets?category=art&format=OBJ&key=AIzaSyBP7I4-PSym1jx4XS8Jv0NCJpJ3I2nOLgM')
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ arTitles: responseJson.assets});
+        this.setState({ arTitles: responseJson.assets });
       })
       .catch((error) => {
         console.error(error);
@@ -100,8 +100,6 @@ export default class App extends Component {
     );
   }
 
-
-  // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
     return (
       <SafeAreaView style={styles.container}>
@@ -110,25 +108,6 @@ export default class App extends Component {
             initialScene={{ scene: ARExperience, passProps: { data: this.state.selectedProp } }} />
         </View>
         <View style={styles.cameraControlsContainer}>
-          {/* <TouchableOpacity onPress={onPressRecord}>
-            <View style={styles.cameraControl}>
-              {recordingVideo && <View style={styles.recordingVideo} />}
-              {!recordingVideo && (
-                <Image
-                  source={images.video}
-                  style={styles.imageCameraControlIcon}
-                />
-              )}
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.cameraControl}>
-              <Image
-                source={images.photo}
-                style={styles.imageCameraControlIcon}
-              />
-            </View>
-          </TouchableOpacity> */}
         </View>
         <View style={styles.footer}>
           <View style={styles.sliderContainer}>
@@ -142,16 +121,14 @@ export default class App extends Component {
               thumbTintColor={colors.yellow}
             />
             <View style={styles.sliderShortContainer}>
-              {/* TODO: Use i18n translations below */}
               <Text style={styles.textSlider}>Short</Text>
             </View>
             <View style={styles.sliderTallContainer}>
-              {/* TODO: Use i18n translations below */}
               <Text style={styles.textSlider}>Tall</Text>
             </View>
           </View>
 
-          
+
         </View>
       </SafeAreaView>
     );

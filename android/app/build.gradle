@@ -133,8 +133,8 @@ android {
          minSdkVersion 23
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 3
-        versionName "2.0"
+        versionCode 4
+        versionName "2.1"
     }
     splits {
         abi {
@@ -160,15 +160,12 @@ android {
     }
     productFlavors {
         ar {
-            resValue 'string', 'app_name', 'ViroSample-ar'
             buildConfigField 'String', 'VR_PLATFORM', '"GVR"' //default to GVR
         }
         gvr {
-            resValue 'string', 'app_name', 'ViroSample-gvr'
             buildConfigField 'String', 'VR_PLATFORM', '"GVR"'
         }
         ovr {
-            resValue 'string', 'app_name', 'ViroSample-ovr'
             applicationIdSuffix '.ovr'
             buildConfigField 'String', 'VR_PLATFORM', '"OVR_MOBILE"'
         }
@@ -216,6 +213,8 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-ddb-mapper:2.7.7'
     implementation 'com.amazonaws:aws-android-sdk-cognito:2.7.7'
     implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.7.7'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
