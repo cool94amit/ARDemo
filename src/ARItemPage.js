@@ -22,5 +22,5 @@ import {
 
 
 export const ARItemPage = () => {
-
+  const refViroARSceneNavigator = useRef(null);
 }
