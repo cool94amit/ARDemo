@@ -58,8 +58,8 @@ export default class ARExperience extends React.Component<IProps, IState>  {
     const { scale } = arSceneNavigator.viroAppProps;
     return (
       <ViroARScene anchorDetectionTypes={'PlanesHorizontal'} displayPointCloud={false}>
-        <ViroARPlaneSelector minHeight={.5} minWidth={.5} alignment={"Horizontal"}>
-          <ViroOrbitCamera position={[0, 0, 0]} focalPoint={[0, 0, -1]} active={true} />
+        {/* <ViroARPlaneSelector minHeight={.5} minWidth={.5} alignment={"Horizontal"}> */}
+          {/* <ViroOrbitCamera position={[0, 0, 0]} focalPoint={[0, 0, -1]} active={true} />
           <ViroSpotLight
             innerAngle={5}
             outerAngle={25}
@@ -70,12 +70,12 @@ export default class ARExperience extends React.Component<IProps, IState>  {
             shadowMapSize={2048}
             shadowNearZ={2}
             shadowFarZ={5}
-            shadowOpacity={.7} />
+            shadowOpacity={.7} /> */}
           <ViroAmbientLight color={'#909090'} influenceBitMask={1} />
-          {/* <ViroARPlane> */}
+          <ViroARPlane minHeight={0.2} minWidth={0.2} alignment={'Horizontal'}>
             <Viro3DObject
               onClick={this.onClick}
-              scale={[scale, scale, scale]} position={[0, 0, 1]}
+              scale={[scale, scale, scale]} position={[0, -1, 0]}
               source={{ uri: data.root.url }}
               resources={[{ uri: data.resources[0].url }]}
               type="OBJ"
@@ -86,13 +86,13 @@ export default class ARExperience extends React.Component<IProps, IState>  {
                 onFinish: this.onAnimationFinished,
               }}
             />
-          {/* </ViroARPlane> */}
-          <ViroQuad
+          </ViroARPlane>
+          {/* <ViroQuad
             position={[0, 0, 0]}
             rotation={[-90, 0, 0]}
             width={4} height={4}
-            arShadowReceiver={true} />
-        </ViroARPlaneSelector>
+            arShadowReceiver={true} /> */}
+        {/* </ViroARPlaneSelector> */}
       </ViroARScene>
     );
   }
