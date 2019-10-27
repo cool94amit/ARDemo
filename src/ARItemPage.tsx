@@ -1,5 +1,5 @@
-import { default as Slider } from '@react-native-community/slider';
-import React, { useCallback, useRef, useState, Component } from 'react';
+import {default as Slider} from '@react-native-community/slider';
+import React, {useCallback, useRef, useState, Component} from 'react';
 import {
   Alert,
   Animated,
@@ -15,46 +15,43 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { SafeAreaView } from 'react-navigation';
+import {SafeAreaView} from 'react-navigation';
 import {
   ViroARSceneNavigator,
   // @ts-ignore
 } from 'react-viro';
 import ARExperience from './ARExperience';
 
-
 interface IProps {
-  navigation: any
-  sceneNavigator: any
+  navigation: any;
+  sceneNavigator: any;
 }
 interface IState {
-  recordingVideo: boolean,
+  recordingVideo: boolean;
+  scale: any;
 }
 
 export default class ARItemPage extends Component<IProps, IState> {
-
   ARSceneNav: any;
-  scale: any = 0.3;
   constructor(props: IProps) {
     super(props);
     this.state = {
       recordingVideo: false,
-    }
+      scale: 0.3,
+    };
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   onPressCapture = () => {
     const date = new Date();
     const dateStr = `${date.getDate()}-${date.getMonth() +
       1}-${date.getFullYear()} ${date.getHours()}_${date.getMinutes()}_${date.getSeconds()}`;
     this.ARSceneNav.sceneNavigator.takeScreenshot(dateStr, true);
-  }
+  };
 
   onPressRecord = () => {
-    this.setState({ recordingVideo: !this.state.recordingVideo }, async () => {
+    this.setState({recordingVideo: !this.state.recordingVideo}, async () => {
       const date = new Date();
       const dateStr = `${date.getDate()}-${date.getMonth() +
         1}-${date.getFullYear()} ${date.getHours()}_${date.getMinutes()}_${date.getSeconds()}`;
@@ -67,28 +64,38 @@ export default class ARItemPage extends Component<IProps, IState> {
   };
 
   setScaleValue = (val: any) => {
-    this.scale = val;
-  }
+    this.setState({scale: val});
+  };
 
   render() {
     const data = this.props.navigation.state.params.data;
     const sharedProps = this.props.navigation.state.params.sharedProps;
 
     return (
-      <SafeAreaView style={styles.container} >
+      <SafeAreaView style={styles.container}>
         <View style={styles.main}>
-          <ViroARSceneNavigator {...sharedProps}
+          <ViroARSceneNavigator
+            {...sharedProps}
             ref={(ARSceneNav: any) => (this.ARSceneNav = ARSceneNav)}
-            viroAppProps={{ scale: this.scale }}
-            initialScene={{ scene: ARExperience, passProps: { data, scale: this.scale } }} />
+            viroAppProps={{scale: this.state.scale}}
+            initialScene={{
+              scene: ARExperience,
+              passProps: {data, scale: this.state.scale},
+            }}
+            bloomEnabled={true}
+            hdrEnabled={true}
+            pbrEnabled={true}
+            shadowsEnabled={true}
+          />
 
           <View style={styles.cameraControlsContainer}>
             <TouchableOpacity
               style={styles.touchableRecord}
-              onPress={() => this.onPressRecord()}
-            >
+              onPress={() => this.onPressRecord()}>
               <View style={styles.cameraControl}>
-                {this.state.recordingVideo && <View style={styles.recordingVideo} />}
+                {this.state.recordingVideo && (
+                  <View style={styles.recordingVideo} />
+                )}
                 {!this.state.recordingVideo && (
                   <Image
                     source={require('../assets/images/video.png')}
@@ -99,8 +106,7 @@ export default class ARItemPage extends Component<IProps, IState> {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.touchableCapture}
-              onPress={() => this.onPressCapture()}
-            >
+              onPress={() => this.onPressCapture()}>
               <View style={styles.cameraControl}>
                 <Image
                   source={require('../assets/images/photo.png')}
@@ -110,7 +116,7 @@ export default class ARItemPage extends Component<IProps, IState> {
             </TouchableOpacity>
           </View>
         </View>
-        {/* <View style={styles.footer}>
+        <View style={styles.footer}>
           <View style={styles.sliderContainer}>
             <Slider
               style={styles.slider}
@@ -120,7 +126,7 @@ export default class ARItemPage extends Component<IProps, IState> {
               minimumTrackTintColor={'whitee'}
               maximumTrackTintColor={'white'}
               thumbTintColor={'yellow'}
-              onValueChange={(val) => this.setScaleValue(val)}
+              onValueChange={val => this.setScaleValue(val)}
             />
             <View style={styles.sliderShortContainer}>
               <Text style={styles.textSlider}>Short</Text>
@@ -129,7 +135,7 @@ export default class ARItemPage extends Component<IProps, IState> {
               <Text style={styles.textSlider}>Tall</Text>
             </View>
           </View>
-        </View> */}
+        </View>
       </SafeAreaView>
     );
   }

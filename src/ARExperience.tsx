@@ -44,6 +44,9 @@ export default class ARExperience extends React.Component<IProps, IState>  {
   onClick = () => {
     this.setState({ isRotating: true });
   };
+  onPinch = () => {
+    
+  };
   onAnimationFinished = () => {
     this.setState({ isRotating: false });
   };
@@ -79,6 +82,7 @@ export default class ARExperience extends React.Component<IProps, IState>  {
               source={{ uri: data.root.url }}
               resources={[{ uri: data.resources[0].url }]}
               type="OBJ"
+              onPinch={this.onPinch}
               animation={{
                 name: 'rotate',
                 loop: true,
